@@ -1,32 +1,46 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
+:root {
+  --color-primary: DarkOrange;
+  --color-primary-l: orange;
+  --color-primary-d: OrangeRed;
+  --color-nav: #333;
+  --color-wash: #eee;
+  --color-card: #fff;
+  --color-highlight: PapayaWhip;
+  --color-text: #111;
+  --color-text-t: #333;
+  --colot-text-tt: #555;
+  --color-text-ttt: #777;
+  --font: "Lato", sans-serif;
+  background: var(--color-wash);
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.item {
+  margin: 0 4px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1 {
+  color: var(--color-text);
+  margin: 0px 0px 8px 0px;
+  font-size: 17pt;
 }
 
-.App-link {
-  color: #61dafb;
+
+h2 {
+  color: var(--color-text-t);
+  margin: 0px 0px 4px 0px;
+  font-size: 15pt;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body, p {
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  color: var(--color-text-t);
+  font-size: 13pt;
 }
