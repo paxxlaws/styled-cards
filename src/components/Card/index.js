@@ -115,25 +115,38 @@ export default class Card extends Component {
     this.setState({selected: !this.state.selected})
     //this.className = this.state.selected ? 'card-closed' : 'card-open';
     //this.setState({animation: ${expandCard} 2s linear})
-    console.log('The link was clicked.')
+    //this.refs.card.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
+    //this.refs.card.scroll(0,100);
+    //console.log(this.props.id);
+    //this.props.discard(this.props.id);
+  }
+
+  discardCard = (e) => {
+    e.stopPropagation();
+    this.props.discard(this.props.id);
+  }
+
+  playCard = (e) => {
+    e.stopPropagation();
+    //this.props.discard(this.props.id);
+    console.log("Play");
   }
 
   render() {
     const {selected} = this.state;
     //let styles = this.state.select ? {height: '300px'} : {height: 'auto'};
     //let styles = {animation: ${expandCard} 2s linear};
-
     //let className = this.state.selected ? 'card-open' : 'card-closed';
 
     return <article className="card">
-        <Wrapper className={selected ? "expanded" : ""} onClick={this.selectCard}>
+        <Wrapper className={selected ? "expanded" : ""} onClick={this.selectCard} ref="card">
             <div className = "cardContents">
                 <h2 className="title">{this.props.title}</h2>
                 <p className="description">{this.props.description}</p>
             </div>
             <div className="footerButtons">
-                <Button>Discard</Button>
-                <Button primary>Play </Button>
+                <Button discard = {this.props.discard} onClick={this.discardCard}>Discard</Button>
+                <Button primary onClick={this.playCard}>Play </Button>
             </div>
         </Wrapper>
       </article>;

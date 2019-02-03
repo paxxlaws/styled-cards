@@ -6,14 +6,22 @@ import shortid from 'shortid';
 import './App.css';
 import Card from './components/Card';
 
-const cards = [
+const cardInput = [
   {title:"Card 1",description:"This is a card"},
-  {title:"Card 1",description:"This is a card"},
-  {title:"Card 1",description:"This is a card"},
-  {title:"Card 1",description:"This is a card"},
-  {title:"Card 1",description:"This is a card"},
-  {title:"Card 1",description:"This is a card"}
+  {title:"Card 2",description:"This is a card"},
+  {title:"Card 3",description:"This is a card"},
+  {title:"Card 4",description:"This is a card"},
+  {title:"Card 5",description:"This is a card"},
+  {title:"Card 6",description:"This is a card"},
+  {title:"Card 7",description:"This is a card"},
+  {title:"Card 8",description:"This is a card"}
 ];
+
+function CardObj(id, title, description) {
+  this.id = id;
+  this.title = title;
+  this.description = description;
+}
 
 const AppMain = styled.div`
   display: flex;
@@ -41,12 +49,17 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-        ypos: 0
+        ypos: 0,
+        cardPool: cardInput.map(card => {
+          var c = new CardObj(shortid.generate(),card.title,card.description);
+          return c;
+      })
     }
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.listenToScroll)
+    console.log(this.state.pool);
   }
   
   componentWillUnmount() {
@@ -68,15 +81,18 @@ export default class App extends Component {
     })
   }
 
+  discard = (cardID) => {
+    console.log(this.state.cardPool.filter((card)=>card.id!==cardID))
+    this.setState({cardPool: this.state.cardPool.filter((card)=>card.id!==cardID)})
+  }
+
   render() {
-    const {ypos} = this.state;
+    const {ypos,cardPool} = this.state;
 
     return <div className="app">
         <Header className={ypos ? "scrolled" : ""}/>
         <Feed className = "feed">
-          {cards.map((card, index) => (
-            <Card key={`div-${shortid.generate()}`} title={card.title} description={card.description} />
-          ))}
+          {cardPool.map(card => <Card key={card.id} id={card.id} title={card.title} description={card.description} discard={this.discard}/>)}
         </Feed>
       </div>;
   }
