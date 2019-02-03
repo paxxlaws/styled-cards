@@ -3,58 +3,6 @@ import React, { Component } from "react";
 import styled, { css, keyframes } from 'styled-components';
 import "../../App.css";
 
-const Button = styled.button`
-    background: transparent;
-    border-radius: 4px;
-    outline: none;
-    border: 2px solid var(--color-primary);
-    color: var(--color-primary);
-    text-align: center;
-    padding: 8px 12px;
-    margin: 0px 2px;
-    display: flex;
-
-    color: ${props => props.inputColor || "palevioletred"};
-
-    ${props => props.primary && css`
-        background: var(--color-primary);
-        color: white;
-        :hover {
-            cursor: pointer;
-            background: var(--color-primary-l);
-            color: white;
-        }
-    `};
-    :hover {
-        cursor: pointer;
-        color: var(--color-primary);
-    }
-
-`
-
-// Create the keyframes
-const expandCard = keyframes`
-    from {
-        height: 100px;
-    }
-
-    to {
-        height: 150px;
-    }
-`;
-
-// Create the keyframes
-const collapseCard = keyframes`
-    from {
-        height: 150px;
-    }
-
-    to {
-        height: 100px;
-    }
-`;
-
-
 const Wrapper = styled.div`
     border-radius: 3px;
     border: 1px solid #e6e6e6;
@@ -100,6 +48,35 @@ const Wrapper = styled.div`
         box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
         cursor: pointer;
     }
+`
+
+const Button = styled.button`
+    background: transparent;
+    border-radius: 4px;
+    outline: none;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    text-align: center;
+    padding: 8px 12px;
+    margin: 0px 2px;
+    display: flex;
+
+    color: ${props => props.inputColor || "palevioletred"};
+
+    ${props => props.primary && css`
+        background: var(--color-primary);
+        color: white;
+        :hover {
+            cursor: pointer;
+            background: var(--color-primary-l);
+            color: white;
+        }
+    `};
+    :hover {
+        cursor: pointer;
+        color: var(--color-primary);
+    }
+
 `
 
 export default class Card extends Component {

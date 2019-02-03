@@ -1,4 +1,0 @@
-{this.state.selected ? <div className="footer-buttons">
-                <Button>Normal Button</Button>
-                <Button primary>Primary </Button>
-            </div> : null}

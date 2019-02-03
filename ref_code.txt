@@ -1,0 +1,28 @@
+{this.state.selected ? <div className="footer-buttons">
+                <Button>Normal Button</Button>
+                <Button primary>Primary </Button>
+            </div> : null}
+
+
+
+// Create the keyframes
+const expandCard = keyframes`
+    from {
+        height: 100px;
+    }
+
+    to {
+        height: 150px;
+    }
+`;
+
+// Create the keyframes
+const collapseCard = keyframes`
+    from {
+        height: 150px;
+    }
+
+    to {
+        height: 100px;
+    }
+`;
