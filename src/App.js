@@ -2,9 +2,12 @@
 
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import shortid from 'shortid';
 import './App.css';
 import Card from './components/Card';
+import Header from './components/Header';
 
 const cardInput = [
   {title:"Card 1",description:"This is a card"},
@@ -18,31 +21,25 @@ const cardInput = [
 ];
 
 function CardObj(id, title, description) {
+  this.key = id; //not sure this is necessary
   this.id = id;
   this.title = title;
   this.description = description;
 }
 
-const AppMain = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const Header = styled.div`
-    background-color: var(--color-wash);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
-    top: 0;
-    position: sticky;
-    height: 64px;
-    width: 100%;
-    z-index: 2;
-    &.scrolled {
-      box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
-    }
-`
-
 const Feed = styled.section`
     margin: 16px;
+`
+
+const NullState = styled.section`
+    margin: 16px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-size: 16pt;
+    font-weight: bold;
+    align-content: center;
+    justify-content: center;
 `
 
 export default class App extends Component {
@@ -53,13 +50,14 @@ export default class App extends Component {
         cardPool: cardInput.map(card => {
           var c = new CardObj(shortid.generate(),card.title,card.description);
           return c;
-      })
+        }),
+        discardPool: []
     }
+    //const HandView = () => this.state.cardPool.map(card => <Card key={card.id} id={card.id} title={card.title} description={card.description} discard={this.discard}/>);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.listenToScroll)
-    console.log(this.state.pool);
   }
   
   componentWillUnmount() {
@@ -82,18 +80,45 @@ export default class App extends Component {
   }
 
   discard = (cardID) => {
-    console.log(this.state.cardPool.filter((card)=>card.id!==cardID))
-    this.setState({cardPool: this.state.cardPool.filter((card)=>card.id!==cardID)})
+    var cardToDiscard = this.state.cardPool.filter((card)=>card.id===cardID)
+    this.setState({discardPool: this.state.discardPool.concat(cardToDiscard)})
+    this.setState({cardPool: this.state.cardPool.filter((card)=>card.id!==cardID)})//this is a bit redundant, clean up later
+  }
+
+  handView = () => {
+    const h = this.state.cardPool.map(card => 
+        <Card key={card.id} id={card.id} title={card.title} description={card.description} discard={this.discard}/>
+    )
+
+    if (this.state.cardPool.length <1){
+      return <NullState>No Cards</NullState>
+    }
+    else {
+      return h;
+    }
+  }
+
+  discardView = () => {
+    const d = this.state.discardPool.map(card => <Card key={card.id} id={card.id} title={card.title} description={card.description} discard={this.discard}/>)
+    if (this.state.discardPool.length <1){
+      return <NullState>No Cards</NullState>
+    }
+    else {
+      return d;
+    }
   }
 
   render() {
     const {ypos,cardPool} = this.state;
 
-    return <div className="app">
-        <Header className={ypos ? "scrolled" : ""}/>
-        <Feed className = "feed">
-          {cardPool.map(card => <Card key={card.id} id={card.id} title={card.title} description={card.description} discard={this.discard}/>)}
-        </Feed>
-      </div>;
+    return <Router>
+    <div className="app">
+      <Header ypos={ypos}/>
+      <Feed className = "feed">
+        <Route exact path="/" component={this.handView}/>
+        <Route path="/discard" component={this.discardView} />
+      </Feed>
+    </div>
+    </Router> ;
   }
 }

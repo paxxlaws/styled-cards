@@ -1,0 +1,66 @@
+{this.state.selected ? <div className="footer-buttons">
+                <Button>Normal Button</Button>
+                <Button primary>Primary </Button>
+            </div> : null}
+
+
+
+// Create the keyframes
+const expandCard = keyframes`
+    from {
+        height: 100px;
+    }
+
+    to {
+        height: 150px;
+    }
+`;
+
+// Create the keyframes
+const collapseCard = keyframes`
+    from {
+        height: 150px;
+    }
+
+    to {
+        height: 100px;
+    }
+`;
+
+color: ${props => props.inputColor || "palevioletred"};
+
+<CSSTransitionGroup
+          transitionName="card"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+            <Route exact path="/" component={this.handView}/>
+            <Route path="/discard" component={this.discardView} />
+          </CSSTransitionGroup>
+
+
+
+
+  sandView = () => {
+    const h = this.state.cardPool.map(card => 
+      <CSSTransition
+        key={card.id}
+        timeout={300}
+        classNames="fade"
+        in={card.in}>
+          <Card key={card.id} id={card.id} title={card.title} description={card.description} discard={this.discard}/>
+      </CSSTransition>
+    )
+
+    if (this.state.cardPool.length <1){
+      return <NullState>No Cards</NullState>
+    }
+    else {
+      return h;
+    }
+  }
+
+multiple class names
+https://stackoverflow.com/questions/34521797/how-to-add-multiple-classes-to-a-reactjs-component
+
