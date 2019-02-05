@@ -1,7 +1,7 @@
 // src/components/Card/index.js
 import React, { Component } from "react";
 import styled, { css, keyframes } from 'styled-components';
-import "../../App.css";
+import "../App.css";
 
 //#region Wrapper
 const Wrapper = styled.div`

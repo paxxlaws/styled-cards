@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import shortid from 'shortid';
 import './App.css';
-import Card from './components/Card';
-import Header from './components/Header';
+import Card from './components/Card.js';
+import Header from './components/Header.js';
 
 const cardInput = [
   {title:"Card 1",description:"This is a card"},

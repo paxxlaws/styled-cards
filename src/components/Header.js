@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import styled, { css, keyframes } from 'styled-components';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "../../App.css";
+import "../App.css";
 
 //#region Wrapper
 const Wrapper = styled.div`
