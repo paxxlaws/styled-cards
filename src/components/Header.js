@@ -1,9 +1,9 @@
 // src/components/Card/index.js
 import React, { Component } from "react";
-import styled, { css, keyframes } from 'styled-components';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import styled, { css, keyframes, withTheme } from 'styled-components';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "../App.css";
+import { NavLink } from 'react-router-dom';
+import Button from "./Button.js";
 
 //#region Wrapper
 const Wrapper = styled.div`
@@ -16,105 +16,59 @@ const Wrapper = styled.div`
     padding: 12px 12px 0 12px;
     z-index: 2;
     display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    justify-content: center;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: left;
     color: var(--color-primary-l);
+    background-color: ${props => props.theme.wash};
+
     &.scrolled {
-      box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 8px 8px ${props => props.theme.shadow};
     }
 
-    .react-tabs__tab-list {
+    nav {
+        width: 100%
+    }
+
+    ul {
         display: flex;
         flex-flow: row nowrap;
-    }
-
-    .react-tabs__tab-list :hover {
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .react-tabs__tab {
         list-style: none;
-        color: var(--color-primary);
     }
-
-    .react-tabs__tab :hover {
-        box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-    }
-
-    .react-tabs__tab--selected {
-        color: var(--color-primary);
-        box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.1);
-        font-weight: bold;
-        outline: none;
-    }
-
-    .react-tabs__tab--disabled {
-        color: GrayText;
-        cursor: default;
-    }
-
-    /*.react-tabs__tab:focus {
-        box-shadow: 0 0 5px hsl(208, 99%, 50%);
-        border-color: hsl(208, 99%, 50%);
-        outline: none;
-    }
-
-    .react-tabs__tab:focus:after {
-    content: "";
-        position: absolute;
-        height: 5px;
-        left: -4px;
-        right: -4px;
-        bottom: -5px;
-        background: #fff;
-        outline:none;
-    }
-
-    .react-tabs__tab-panel {
-        display: none;
-    }
-
-    .react-tabs__tab-panel--selected {
-        display: none;
-    }*/
-`
+`;
 //#endregion
 
-const StyledLink = styled(Link)`
-    display: block;
+const StyledLink = styled(NavLink)`
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     text-decoration: none;
+    color: var(--color-primary);
     box-shadow: none;
     padding: 8px 12px 12px 8px;
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-        box-shadow: none;
+    &.active{
+        color: var(--color-primary);
+        box-shadow: 0 6px 4px -4px ${props => props.theme.shadow};
+        font-weight: bold;
+        outline: none;
+    }
+    &:hover{
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 8px 8px -4px ${props => props.theme.shadow};
     }
 `;
 
-export default class Header extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
-  }
+const Header = ({ ypos, changeTheme }) => (
+    <Wrapper className={ypos ? "scrolled" : ""}>
+        <nav>
+            <ul>
+                <li><StyledLink to="/" exact>Hand</StyledLink></li>
+                <li><StyledLink to="/discard">Discard</StyledLink></li>
+            </ul>
+        </nav>
+        <Button label onClick={changeTheme}>Theme</Button>
+    </Wrapper>
+);
 
-  render() {
-    return <Wrapper className={this.props.ypos ? "scrolled" : ""}>
-            <Tabs>
-                <TabList>
-                    <Tab>
-                        <StyledLink to="/">Hand</StyledLink>
-                    </Tab>
-                    <Tab >
-                        <StyledLink to="/discard/">Discard</StyledLink>
-                    </Tab>
-                    <TabPanel></TabPanel>
-                    <TabPanel></TabPanel>
-                </TabList>
-            </Tabs>
-        </Wrapper>;
-    }
-}
+export default Header;

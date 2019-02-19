@@ -1,22 +1,30 @@
 // src/components/Card/index.js
 import React, { Component } from "react";
-import styled, { css, keyframes } from 'styled-components';
-import "../App.css";
+import styled, { css, keyframes, ThemeProvider } from 'styled-components';
+import Button from "./Button.js";
 
 //#region Wrapper
 const Wrapper = styled.div`
     border-radius: 8px;
-    border: 1px solid #e6e6e6;
-    background-color: var(--color-card);
+    background-color: ${props => props.theme.card};
     padding: 16px;
     margin: 0px 0px 12px 0px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 4px 0 ${props => props.theme.shadow};
     transition: all .2s ease-in;
     max-height: 150px;
     height: auto;
+    background-color: ${props => props.theme.card};
+
+    h2 {
+        color: ${props => props.theme.text};
+    }
+
+    p {
+        color: ${props => props.theme.text_t};
+    }
 
     &.expanded {
         height: 300px;
@@ -71,47 +79,17 @@ const Wrapper = styled.div`
         display: flex;
         flex-flow: row nowrap;
         margin: 0 -2px;
+        display: ${props => props.show ? "none" : ""};
     }
 
     :hover {
-        box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 8px 0 ${props => props.theme.shadow};
         cursor: pointer;
     }
 `
 //#endregion
 
-//#region Button
-const Button = styled.button`
-    background: transparent;
-    border-radius: 4px;
-    outline: none;
-    border: 2px solid var(--color-primary);
-    color: var(--color-primary);
-    text-align: center;
-    padding: 8px 12px;
-    margin: 0px 2px;
-    display: flex;
-
-    color: ${props => props.inputColor || "palevioletred"};
-
-    :hover {
-        cursor: pointer;
-        color: var(--color-primary);
-    }
-
-    ${props => props.primary && css`
-        background: var(--color-primary);
-        color: white;
-        :hover {
-            cursor: pointer;
-            background: var(--color-primary-l);
-            color: white;
-        }
-    `};
-`
-//#endregion
-
-export default class Card extends Component {
+class Card extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -153,14 +131,15 @@ export default class Card extends Component {
     //let className = this.state.selected ? 'card-open' : 'card-closed';
 
     return <Wrapper className={selected ? "expanded" : ""} onClick={this.selectCard} ref="card">
-            <div className = "cardContents">
-                <h2 className="title">{this.props.title}</h2>
-                <p className="description">{this.props.description}</p>
-            </div>
-            <div className="footerButtons">
-                <Button discard = {this.props.discard} onClick={this.discardCard}>Discard</Button>
-                <Button primary onClick={this.playCard}>Play </Button>
-            </div>
-        </Wrapper>;
+        <div className = "cardContents">
+            <h2 className="title">{this.props.title}</h2>
+            <p className="description">{this.props.description}</p>
+        </div>
+        {this.props.show ? null :<div className="footerButtons">
+        <Button onClick={this.discardCard}>Discard</Button>
+            <Button primary onClick={this.playCard}>Play </Button>
+        </div>}
+    </Wrapper>;
     }
 }
+export default Card;

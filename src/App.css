@@ -1,50 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Lato");
 
-:root {
-  --color-primary: DarkOrange;
-  --color-primary-l: orange;
-  --color-primary-d: OrangeRed;
-  --color-nav: #333;
-  --color-wash: #eee;
-  --color-card: #fff;
-  --color-highlight: PapayaWhip;
-  --color-text: #111;
-  --color-text-t: #333;
-  --colot-text-tt: #555;
-  --color-text-ttt: #777;
-  --font: "Lato", sans-serif;
-  background: var(--color-wash);
-}
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-.item {
-  margin: 0 4px;
-}
-
-h1 {
-  color: var(--color-text);
-  margin: 0px 0px 8px 0px;
-  font-size: 17pt;
-}
-
-
-h2 {
-  color: var(--color-text-t);
-  margin: 0px 0px 4px 0px;
-  font-size: 15pt;
-}
-
-body, p {
-  width: 100%;
-  font-family: "Lato", sans-serif;
-  color: var(--color-text-t);
-  font-size: 13pt;
-}
-
 .fade-enter {
   opacity: 0.01;
 }
