@@ -9,6 +9,7 @@ import shortid from 'shortid';
 import './App.css';
 import Card from './components/Card.js';
 import Header from './components/Header.js';
+import Sheet from "./components/Sheet.js";
 //import Content from './components/Content.js';
 
 // Theme
@@ -68,14 +69,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    color: var(--color-text);
+    color: ${props => props.theme.text};
     margin: 0px 0px 8px 0px;
     font-size: 17pt;
   }
 
 
   h2 {
-    color: var(--color-text-t);
+    color: ${props => props.theme.text};
     margin: 0px 0px 4px 0px;
     font-size: 15pt;
   }
@@ -84,8 +85,11 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-family: var(--font);
-    color: var(--color-text-t);
+    color: ${props => props.theme.text_t};
     font-size: 13pt;
+    &.no-scroll{
+      overflow: hidden;
+    }
   }
 `
 //#endregion
@@ -134,8 +138,10 @@ class App extends Component {
           var c = new CardObj(shortid.generate(),card.title,card.description);
           return c;
         }),
-        discardPool: []
+        discardPool: [],
+        openSheet: false
     }
+
   }
 
   componentDidMount() {
@@ -194,15 +200,25 @@ class App extends Component {
     }
   }
 
+  openSheet = () => {
+    if (this.state.openSheet == true){document.body.classList.remove('no-scroll');}
+    else {
+      document.body.classList.add('no-scroll');
+    }
+    this.setState({openSheet: !this.state.openSheet})
+    //{openSheet ? <Sheet title="Sheet" description="This is a sheet" openSheet={this.openSheet} in={openSheet}/>: null}
+  }
+
   render() {
-    const {ypos,cardPool,discardPool,theme} = this.state;
+    const {ypos,cardPool,discardPool,theme,openSheet} = this.state;
 
     return <ThemeProvider theme={theme}> 
       <Router>
         <React.Fragment>
           <GlobalStyle />
-          <Header ypos={ypos} changeTheme={this.changeTheme}/>
-          <Feed className = "feed">
+          <Sheet title="Sheet" description="This is a sheet" openSheet={this.openSheet} in={openSheet}/>
+          <Header ypos={ypos} changeTheme={this.changeTheme} openSheet={this.openSheet}/>
+          <Feed>
             <Switch>
               <Route exact path="/" component={this.handView}/>
               <Route path="/discard" component={this.discardView} />

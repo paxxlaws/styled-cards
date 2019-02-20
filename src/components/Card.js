@@ -18,14 +18,6 @@ const Wrapper = styled.div`
     height: auto;
     background-color: ${props => props.theme.card};
 
-    h2 {
-        color: ${props => props.theme.text};
-    }
-
-    p {
-        color: ${props => props.theme.text_t};
-    }
-
     &.expanded {
         height: 300px;
         max-height: 300px;

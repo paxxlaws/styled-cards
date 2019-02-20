@@ -59,7 +59,7 @@ const StyledLink = styled(NavLink)`
     }
 `;
 
-const Header = ({ ypos, changeTheme }) => (
+const Header = ({ ypos, changeTheme, openSheet }) => (
     <Wrapper className={ypos ? "scrolled" : ""}>
         <nav>
             <ul>
@@ -68,6 +68,7 @@ const Header = ({ ypos, changeTheme }) => (
             </ul>
         </nav>
         <Button label onClick={changeTheme}>Theme</Button>
+        <Button label onClick={openSheet}>Sheet</Button>
     </Wrapper>
 );
 
