@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import styled, { css } from 'styled-components';
 
-//#region Button
 const Button = styled.button`
     background: transparent;
     border-radius: 4px;
@@ -33,6 +32,5 @@ const Button = styled.button`
         border: none;
     `};
 `
-//#endregion
 
 export default Button;

@@ -3,16 +3,18 @@
 import React, { Component } from 'react';
 import styled, { css, ThemeProvider, createGlobalStyle } from 'styled-components'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { withRouter, Switch } from 'react-router-dom'
+import { withRouter, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import shortid from 'shortid';
 import './App.css';
 import Card from './components/Card.js';
 import Header from './components/Header.js';
 import Sheet from "./components/Sheet.js";
+import Container from "./components/Container.js";
+//import Theme from "./logic/Theme.js";
 //import Content from './components/Content.js';
 
-// Theme
+//#region Theme
 const dark = {
   wash: "var(--color-dark-wash)",
   card: "var(--color-dark-card)",
@@ -32,6 +34,7 @@ const light = {
   text_tt: "var(--color-text-tt)",
   text_ttt: "var(--color-text-ttt)"
 };
+//#endregion
 
 //#region GlobalStyle
 const GlobalStyle = createGlobalStyle`
@@ -93,7 +96,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 //#endregion
-
 
 const cardInput = [
   {title:"Card 1",description:"This is a card"},
@@ -219,6 +221,7 @@ class App extends Component {
           <Sheet title="Sheet" description="This is a sheet" openSheet={this.openSheet} in={openSheet}/>
           <Header ypos={ypos} changeTheme={this.changeTheme} openSheet={this.openSheet}/>
           <Feed>
+            <Container />
             <Switch>
               <Route exact path="/" component={this.handView}/>
               <Route path="/discard" component={this.discardView} />

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import styled, { css, keyframes, ThemeProvider } from 'styled-components';
-import Container from "./Container.js";
-import Button from "./Button.js";
 
 //#region Wrapper
 const Wrapper = styled.div`
@@ -24,9 +22,6 @@ const Wrapper = styled.div`
         align-items: flex-start;
         flex-flow: column nowrap;
         transition: all .2s ease-out;
-        .footerButtons {            
-            width: 100%;
-        }
         Button {
             display: flex;
             justify-content: center;
@@ -66,14 +61,6 @@ const Wrapper = styled.div`
         margin: 4px;
     }
 
-    .footerButtons {
-        transition: all .2s ease-out;
-        display: flex;
-        flex-flow: row nowrap;
-        margin: 0 -2px;
-        display: ${props => props.show ? "none" : ""};
-    }
-
     :hover {
         box-shadow: 0 8px 8px 0 ${props => props.theme.shadow};
         cursor: pointer;
@@ -81,7 +68,7 @@ const Wrapper = styled.div`
 `
 //#endregion
 
-class Card extends Component {
+class Container extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -101,17 +88,6 @@ class Card extends Component {
     //this.props.discard(this.props.id);
   }
 
-  discardCard = (e) => {
-    e.stopPropagation();
-    this.props.discard(this.props.id);
-  }
-
-  playCard = (e) => {
-    e.stopPropagation();
-    //this.props.discard(this.props.id);
-    console.log("Play");
-  }
-
   componentWillUnmount() {
     this.setState({in: false})
   }
@@ -123,15 +99,7 @@ class Card extends Component {
     //let className = this.state.selected ? 'card-open' : 'card-closed';
 
     return <Wrapper className={selected ? "expanded" : ""} onClick={this.selectCard} ref="card">
-        <div className = "cardContents">
-            <h2 className="title">{this.props.title}</h2>
-            <p className="description">{this.props.description}</p>
-        </div>
-        {this.props.show ? null :<div className="footerButtons">
-        <Button onClick={this.discardCard}>Discard</Button>
-            <Button primary onClick={this.playCard}>Play </Button>
-        </div>}
     </Wrapper>;
     }
 }
-export default Card;
+export default Container;

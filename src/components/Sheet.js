@@ -1,5 +1,5 @@
 // src/components/Card/index.js
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled, { css, ThemeProvider } from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Button from "./Button.js";
@@ -110,3 +110,25 @@ class Sheet extends Component {
     }
 }
 export default Sheet;
+
+/* export default function Sheet() {
+  // Declare a new state variable, which we'll call "count"
+  //const [count, setCount] = useState(0);
+
+  return (
+    <CSSTransition
+        in={this.in}
+        timeout={300}
+        classNames="card"
+        mountOnEnter={false}
+        unmountOnExit>
+        <Wrapper>
+            <Scrim onClick={this.openSheet}/>
+            <Card>
+                <h2 className="title">{this.title}</h2>
+                <p className="description">{this.description}</p>
+            </Card>
+        </Wrapper>
+    </CSSTransition>
+  );
+}*/
